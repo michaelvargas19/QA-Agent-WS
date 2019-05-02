@@ -938,6 +938,7 @@ img {
   width: 100% \9;
   max-width: 100%;
   height: auto;
+  margin: auto;
 }
 .img-rounded {
   border-radius: 6px;
@@ -1770,7 +1771,7 @@ pre code {
     width: 41.66666667%;
   }
   .col-md-4 {
-    width: 33.33333333%;
+    width: 20%;
   }
   .col-md-3 {
     width: 25%;
@@ -1923,6 +1924,10 @@ pre code {
   }
   .col-lg-6 {
     width: 50%;
+  }
+  .service-col .col-lg-6 {
+    width: 100%;
+    text-align: justify
   }
   .col-lg-5 {
     width: 41.66666667%;
