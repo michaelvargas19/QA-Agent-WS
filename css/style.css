@@ -54,7 +54,7 @@ h4,
 h5,
 h6 {
   font-style: normal;
-  margin: 0 0 20px 0;
+  margin: 0 0 10px 0;
 }
 
 h1 {
@@ -557,7 +557,7 @@ i.service-icon:hover {
 }
 
 .mar-bot40 {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .mar-bot45 {
@@ -855,7 +855,7 @@ button[type="submit"].light:hover {
   .navbar .navbar-collapse {
     margin-bottom: 0;
     padding-bottom: 0;
-    margin-top: -20px;
+
   }
 
   .navbar .navbar-nav>.active>a {
@@ -978,7 +978,7 @@ section.featured h2.slogan {
 }
 
 .carousel-inner {
-  height: 50vh;
+  height: 60vh;
 }
 
 @media (max-width: 768px) {
@@ -1068,6 +1068,7 @@ section.featured h2.slogan {
 }
 
 .carousel-caption h2 {
+  margin-top: 80px;
   font-size: 60px;
   color: #fff;
 }
@@ -1079,8 +1080,8 @@ section.featured h2.slogan {
 
 .carousel-caption p {
   font-size: 30px;
-  margin-top: 30px;
-  margin-bottom: 20px;
+
+
   color: #fff;
   padding: 10px;
   background: #3a906d;
@@ -1092,7 +1093,7 @@ section.featured h2.slogan {
     top: 30px;
   }
   .carousel-caption h2 {
-    font-size: 32px;
+    font-size: 26px;
   }
 
   .carousel-caption h2 span,
@@ -1428,7 +1429,7 @@ About
   width: 100%;
   min-width: 100%;
   text-align: center;
-  padding: 10px 0;
+  padding:  0 0 0;
   position: relative;
 }
 
@@ -1668,7 +1669,7 @@ nav#filter a.current {
 /* ------- */
 
 .isotopeWrapper article {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
 }
 
 #portfolio img {
@@ -1730,7 +1731,7 @@ nav#filter a {
 
 
 .portfolio-item:hover .portfolio-desc {
-  padding-top: 20%;
+  padding-top: 7%;
   height: 100%;
   transition: all 200ms ease-in-out 0s;
   opacity: 1;
@@ -1748,7 +1749,7 @@ nav#filter a {
 .portfolio-item .portfolio-desc .folio-info {
   top: -20px;
 
-  padding: 30px;
+  padding: 5px;
   height: 0;
   opacity: 0;
   position: relative;
