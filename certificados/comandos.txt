@@ -1,0 +1,47 @@
+keytool -import -trustcacerts -alias clientCert -file ./client.cert -keypass javeriana -keystore ./truststore_server -storepass javeriana
+
+
+keytool -import -alias clientCert -file ./client.cert -keystore ./truststore_server
+
+
+C:\Users\USUARIO\Documents\tesis\OpenSSL\bin\openssl x509 -in cacerts.pem -text
+
+
+C:\Users\USUARIO\Documents\tesis\OpenSSL\bin\openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+
+
+
+C:\"Program Files"\Java\jre1.8.0_152\bin\keytool -genkey -keyalg RSA -keystore ./keystore_server -alias serverKey
+
+C:\"Program Files"\Java\jre1.8.0_152\bin\keytool -export -alias serverKey -rfc -keystore ./keystore_server > ./server.cert
+
+C:\"Program Files"\Java\jre1.8.0_152\bin\keytool -import -alias serverCert -file ./server.cert -keystore ./truststore_client
+
+keytool -genkey -keyalg RSA -keystore ./keystore_client -alias clientKey
+keytool -export -alias clientKey -rfc -keystore ./keystore_client > ./client.cert
+keytool -import -alias clientCert -file ./client.cert -keystore ./truststore_server
+
+
+
+
+
+
+openSSL 
+
+C:\Users\USUARIO\Documents\tesis\OpenSSL\bin\openssl genrsa -out diagserverCA.key 2048
+
+C:\Users\USUARIO\Documents\tesis\OpenSSL\bin\openssl req -x509 -new -nodes -key diagserverCA.key -sha256 -days 1024 -out diagserverCA.pem
+
+C:\Users\USUARIO\Documents\tesis\OpenSSL\bin\openssl pkcs12 -export -name server-cert -in diagserverCA.pem -inkey diagserverCA.key -out serverkeystore.p12
+
+C:\Program Files\Java\jdk1.8.0_101\bin\keytool -importkeystore -destkeystore server.keystore -srckeystore serverkeystore.p12 -srcstoretype pkcs12 -alias server-cert
+
+C:\Program Files\Java\jdk1.8.0_101\bin\keytool -import -alias server-cert -file diagserverCA.pem -keystore server.truststore
+
+
+
+
+
+
+
+
