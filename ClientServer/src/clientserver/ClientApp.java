@@ -45,7 +45,7 @@ public class ClientApp {
             String response;// = sslClient.sendRequest(url, method, message, msgtype);
 
 //A RESTFul GET web service call
-            strurl = "https://192.168.1.107:8443/WSGuardian/api/myresource";
+            strurl = "https://localhost:8080/configuracion";
 
             url = new URL(strurl);
 
