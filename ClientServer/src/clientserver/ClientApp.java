@@ -16,15 +16,15 @@ public class ClientApp {
 
         ApplicationConfig ac = ApplicationConfig.getInstance();
 
-        ac.setKEYSTOREPATH("./server.keystore");
+        ac.setKEYSTOREPATH("./client.keystore");
 
-        ac.setTRUSTSTOREPATH("./server.truststore");
+        ac.setTRUSTSTOREPATH("./client.truststore");
 
-        ac.setKEYSTOREPW("jamaica");
+        ac.setKEYSTOREPW("javeriana");
 
-        ac.setTRUSTSTOREPW("jamaica");
+        ac.setTRUSTSTOREPW("javeriana");
 
-        ac.setKEYPASS("jamaica");
+        ac.setKEYPASS("javeriana");
 
         ac.setKeystoreType("jks");
 
