@@ -8,45 +8,28 @@ package clientserver;
 public final class ApplicationConfig {
 
     private String KEYSTOREPATH = null;
-
     private String TRUSTSTOREPATH = null;
-
     private String KEYSTOREPW = null;
-
     private String TRUSTSTOREPW = null;
-
     private String KEYPASS = null;
-
     private String HTTPS_SERV_URL = null;
-
     private String trustAllCertificate = "false";// DEFAULT VALUE
-
     private String keystoreType = "JKS";// DEFAULT VALUE
-
     private String regex = null;
-
     private String keymanageralgorithm = null;
-
     private int mqreadinterval = 1;
-
     private int httpsfialureinterval = 5;
-
     private int prodissueinterval = 1;
-
     private static ApplicationConfig myinstance = null;
-
+    
     public static ApplicationConfig getInstance() {
 
-        System.out.println("in ApplicationConfig getInstance");
-
+        //System.out.println("in ApplicationConfig getInstance");
         if (myinstance == null) {
-
             myinstance = new ApplicationConfig();
-
         }
 
         return myinstance;
-
     }
 
     private ApplicationConfig() {
@@ -54,45 +37,31 @@ public final class ApplicationConfig {
     }
 
     public String getKEYSTOREPATH() {
-
         return KEYSTOREPATH;
-
     }
 
     public void setKEYSTOREPATH(String kEYSTOREPATH) {
-
         KEYSTOREPATH = kEYSTOREPATH;
-
     }
 
     public String getTRUSTSTOREPATH() {
-
         return TRUSTSTOREPATH;
-
     }
 
     public void setTRUSTSTOREPATH(String tRUSTSTOREPATH) {
-
         TRUSTSTOREPATH = tRUSTSTOREPATH;
-
     }
 
     public String getKEYSTOREPW() {
-
         return KEYSTOREPW;
-
     }
 
     public void setKEYSTOREPW(String kEYSTOREPW) {
-
         KEYSTOREPW = kEYSTOREPW;
-
     }
 
     public String getTRUSTSTOREPW() {
-
         return TRUSTSTOREPW;
-
     }
 
     public void setTRUSTSTOREPW(String tRUSTSTOREPW) {

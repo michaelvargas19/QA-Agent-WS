@@ -5,6 +5,8 @@
  */
 package clientserver;
 
+import java.io.FileOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import java.io.OutputStreamWriter;
@@ -102,21 +104,7 @@ public class SSLClient {
 
     }
 
-    /**
-     *
-     *
-     *
-     * @param url
-     *
-     * @param method
-     *
-     * @param message
-     *
-     * @param msgtype json or xml
-     *
-     * @return
-     *
-     */
+
     public String sendRequest(URL url, String method, String message, String msgtype) {
 
         String response = null;
@@ -125,7 +113,7 @@ public class SSLClient {
 
             try {
 
-//Sending the request to Remote server
+        //Sending the request to Remote server
                 OutputStreamWriter writer = new OutputStreamWriter(connection_.getOutputStream());
 
                 writer.write(message);
@@ -138,7 +126,7 @@ public class SSLClient {
 
                 LOGGER.info("Response Code :" + _responseCode);
 
-// reading the response
+        //Reading the response
                 InputStreamReader reader = new InputStreamReader(connection_.getInputStream());
 
                 StringBuilder buf = new StringBuilder();
@@ -154,6 +142,10 @@ public class SSLClient {
                 }
 
                 response = buf.toString();
+                
+                
+        
+                
 
             } catch (Exception e) {
 
@@ -171,4 +163,61 @@ public class SSLClient {
 
     }
 
+    public String downloadJAR(URL url, String method, String message, String msgtype) {
+
+        String response = null;
+
+        if (setSSLConnection(url, method, msgtype)) {
+
+            try {
+
+    //Sending the request to Remote server
+                OutputStreamWriter writer = new OutputStreamWriter(connection_.getOutputStream());
+
+                writer.write(message);
+
+                writer.flush();
+
+                writer.close();
+
+                _responseCode = connection_.getResponseCode();
+
+                LOGGER.info("Response Code :" + _responseCode);
+
+            //Reading JAR
+                  
+                String raw = connection_.getHeaderField("Content-Disposition");
+        
+                String nombreArchivo = raw.split("=")[1]; 
+
+                String location = "./Jars/" + nombreArchivo;
+                FileOutputStream out = new FileOutputStream(location);
+                InputStream is = connection_.getInputStream();
+                int len = 0;
+                byte[] buffer = new byte[4096];
+                while((len = is.read(buffer)) != -1) {
+                    out.write(buffer, 0, len);
+                }
+                out.flush();
+                out.close();
+                is.close();
+                
+                response = location;
+
+            } catch (Exception e) {
+
+                response = "<EXCEPTION>Exception occurred while sending message</EXCEPTION>";
+
+                e.printStackTrace();
+
+            }
+
+        }
+
+        releaseConnection();
+
+        return response;
+
+    }
+    
 }

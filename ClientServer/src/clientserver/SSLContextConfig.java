@@ -81,12 +81,12 @@ public class SSLContextConfig {
                     @Override
                     public java.security.cert.X509Certificate[] getAcceptedIssuers() {
                         try{
-                        InputStream inStream = new FileInputStream("C:\\Users\\USUARIO\\Documents\\tesis\\certificados\\diagclientCA.pem");
+                        InputStream inStream = new FileInputStream("..\\certificados\\diagclientCA.pem");
                         CertificateFactory cf = CertificateFactory.getInstance("X.509");
                         X509Certificate cert = (X509Certificate) cf.generateCertificate(inStream);
                         inStream.close();
                         
-                         inStream = new FileInputStream("C:\\Users\\USUARIO\\Documents\\tesis\\certificados\\diagserverCA.pem");
+                         inStream = new FileInputStream("..\\certificados\\diagserverCA.pem");
                          cf = CertificateFactory.getInstance("X.509");
                         X509Certificate cert2 = (X509Certificate) cf.generateCertificate(inStream);
                         inStream.close();
@@ -111,7 +111,7 @@ public class SSLContextConfig {
 
                     @Override
                     public void checkServerTrusted(X509Certificate[] certs, String authType) {
-                        System.out.println("server auth type " + authType);
+                        //System.out.println("server auth type " + authType);
                     //    this.checkServerTrusted(certs, authType);
                     }
 
