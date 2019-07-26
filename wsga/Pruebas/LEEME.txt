@@ -1,0 +1,24 @@
+WSDL: http://localhost:8080/ws/booksWsdl.wsdl
+
+--SoapUI
+File-> New SOAP Project 
+Proyect name: Cualquiera
+initial WSDL: http://localhost:8080/ws/booksWsdl.wsdl
+marcar: create sample request for all operations
+OK
+a la izq saldra el proyecto con las operaciones
+seleccionar y probar cambiando el signo de pregunta del request por un numero (1 - 4)
+
+--POSTMAN
+ 
+sleccionar POST
+url: http://localhost:8080/ws
+body:
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:book="https://www.wsga.com/xml/book">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <book:getBookRequest>
+         <book:id>4</book:id>
+      </book:getBookRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
