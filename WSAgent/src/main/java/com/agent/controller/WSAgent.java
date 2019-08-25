@@ -1,4 +1,4 @@
-package com.agent.service;
+package com.agent.controller;
 
 import java.util.Enumeration;
 
@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agent.util.AppConfig;
-import com.agent.util.ModifyXML;
 
 @RestController
 @RequestMapping("operations")
-public class OperationsResource {
+public class WSAgent {
 	
-	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
 	//Resource type GET to receive any request 
 	@RequestMapping(value = "/**", method = RequestMethod.GET)
@@ -44,4 +43,5 @@ public class OperationsResource {
 		
 		return soapAction;
 	}
+
 }

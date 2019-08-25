@@ -1,4 +1,4 @@
-package com.agent.service;
+package com.agent.controller;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +11,7 @@ import com.agent.util.ModifyXML;
 
 @RestController
 @RequestMapping("configuration")
-public class ConfigurationResource {
+public class Configuration {
 
 	private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 	
