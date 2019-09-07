@@ -1,6 +1,11 @@
 package com.agent.business;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +18,7 @@ import com.agent.entities.Policy;
 import com.agent.entities.Service;
 import com.agent.integration.ProxyAgent;
 import com.agent.integration.ProxyConfig;
+import com.agent.policy.JarClassLoader;
 import com.agent.repository.IRepositoyService;
 import com.agent.repository.RepositoyService;
 import com.agent.util.Util;
@@ -27,67 +33,23 @@ public class BusinessRulesAgent {
 	private Util util;
 	
 	@Autowired
-	private RepositoyService repository;
-	
-	private ProxyConfig proxyConfig;
-	
-	@Autowired
+	@Qualifier("ProxyAgent")
 	private ProxyAgent proxyAgent;
 	
 	private Agent agent;
 	private List<Service> services;
 	private List<Policy> policies;
 	
-	public void loadSeervice() {}
 	
-	private void getPrimaryKey(String response) {};
 	
-	private List<Service> getServices(String response) {
-		return null;
-	};
-	
-	private List<Policy> getPolicies(String response) {
-		return null;
-	}
-	
-	private boolean validateSignature() {
-		return true;
-	}
-	
-	public String getWSDL(String nameService) {
-		
-		String html = this.util.getRequestToWSDL(nameService);
-		
-		String wsdl = this.proxyAgent.sendRequest(html);
-		
-		wsdl = this.util.fixWSDL(wsdl);
-		
-		return wsdl;
-	}
+	//--------------------------------------------------------------------------- Configuration
+	@PostConstruct
+    public void init() {
+		//loadService();
+    }
 
+	
 	//--------------------------------------------------------------------------- Policies
-	public String applyPolicies(String request, List<Policy> policies) {
-		
-		String requestFixed = request;
-		
-		for (Policy policy : policies) {
-			policy.applyPolitic(requestFixed);			
-		}
-		
-		return requestFixed;
-	}
-	
-	public 	String processRequest(String request, int idService) {
-		
-		Service service = this.findService("#nameService");
-		
-		List<Policy> policies = this.repository.findPoliciesByService(service);
-		
-		this.applyPolicies(request, policies);
-		
-		return "";		
-	}
-	
 	public Service findService(String nameService) {
 		
 		for (Service service : this.services) {
@@ -98,25 +60,31 @@ public class BusinessRulesAgent {
 		
 		return null;
 	}
+
+	private List<Policy> findPoliciesByOperation(String request) {
+		return null;
+	}
+
+	public String applyPolicies(String request, List<Policy> policies) {
+		
+		String requestFixed = request;
+		
+		for (Policy policy : policies) {
+			policy.applyPolitic(requestFixed);			
+		}
+		
+		return requestFixed;
+	}
+		
 	
+	private boolean validatePolicies(String request) {
+		return true;
+	}
+	
+		
 	
 	//---------------------------------------------------------------------------
-	
-	public RepositoyService getRepository() {
-		return repository;
-	}
 
-	public void setRepository(RepositoyService repository) {
-		this.repository = repository;
-	}
-
-	public ProxyConfig getProxy() {
-		return proxyConfig;
-	}
-
-	public void setProxy(ProxyConfig proxy) {
-		this.proxyConfig = proxy;
-	}
 
 	public Agent getAgent() {
 		return agent;

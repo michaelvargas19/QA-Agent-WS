@@ -8,10 +8,11 @@ public class Service {
 	private int id;
 	private String name;
 	private String description;
-	private URL urlWsdl;
+	private URL urlWSDL;
 	private String version;
 	private Date expiration;
 	private List<Operation> operations;
+	
 	
 	//--------------------------------------------------------
 	
@@ -35,10 +36,10 @@ public class Service {
 		this.description = description;
 	}
 	public URL getUrlWsdl() {
-		return urlWsdl;
+		return urlWSDL;
 	}
 	public void setUrlWsdl(URL urlWsdl) {
-		this.urlWsdl = urlWsdl;
+		this.urlWSDL = urlWsdl;
 	}
 	public String getVersion() {
 		return version;
@@ -58,10 +59,6 @@ public class Service {
 	public void setOperations(List<Operation> operations) {
 		this.operations = operations;
 	}
-
-	
-	
-
 	
 	
 }

@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agent.business.BusinessRulesAgent;
+import com.agent.business.BusinessRulesConfig;
 import com.agent.entities.Service;
 import com.agent.util.ModifyXML;
 import com.agent.util.Util;
@@ -36,7 +37,9 @@ public class WSAgent {
 	private BusinessRulesAgent business;
 	
 	@Autowired
-	@Qualifier("Util")
+	@Qualifier("BusinessRulesConfig")
+	private BusinessRulesConfig configuration;
+	
 	private Util util;
 		
 	
@@ -54,7 +57,9 @@ public class WSAgent {
 			nameService = url.getPath().substring(15);
 			
 			if(validateService(nameService)) {
-				wsdl = business.getWSDL(nameService);
+				wsdl = configuration.getWSDL(nameService);
+			}else {
+				wsdl = util.getErrorConfiguration(nameService);
 			}
 			
 			

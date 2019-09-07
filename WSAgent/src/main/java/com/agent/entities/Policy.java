@@ -1,5 +1,6 @@
 package com.agent.entities;
 
+import java.io.File;
 import java.util.Date;
 
 public class Policy {
@@ -8,6 +9,9 @@ public class Policy {
 	private String name;
 	private Date expiration;
 	private PolicyType type;
+	private String URLJar;
+	private String classNameLoader;
+	private File jar;
 	
 	public String applyPolitic(String request) {
 		return " :: " + request + "--> Have polity " + this.name;
@@ -48,5 +52,31 @@ public class Policy {
 		this.type = type;
 	}
 
+	public String getClassName() {
+		return classNameLoader;
+	}
+
+	public void setClassName(String className) {
+		this.classNameLoader = className;
+	}
+
+	public String getURLJar() {
+		return URLJar;
+	}
+
+	public void setURLJar(String uRLJar) {
+		URLJar = uRLJar;
+	}
+
+	public File getJar() {
+		return jar;
+	}
+
+	public void setJar(File jar) {
+		this.jar = jar;
+	}
+
+	
+	
 	
 }

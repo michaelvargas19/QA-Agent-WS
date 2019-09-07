@@ -20,10 +20,6 @@ import com.fasterxml.jackson.databind.ser.std.StdKeySerializers.Dynamic;
 //@ComponentScan({"com.agent.business", "com.agent.controller"})
 public class WSAgentApplication extends SpringBootServletInitializer{
 	
-	//@Autowired
-	//@Qualifier("com.agent.business.BusinessRulesAgent")
-	//private BusinessRulesAgent business;
-
 	public static void main(String[] args) {
 		SpringApplication.run(WSAgentApplication.class, args);
 		

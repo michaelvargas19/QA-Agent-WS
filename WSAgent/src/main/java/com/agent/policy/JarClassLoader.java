@@ -53,7 +53,7 @@ import java.util.logging.Logger;
 /**
  * A class loader for loading jar files, both local and remote.
  */
-class JarClassLoader extends URLClassLoader {
+public class JarClassLoader extends URLClassLoader {
     private URL url;
 
     /**
@@ -137,6 +137,10 @@ class JarClassLoader extends URLClassLoader {
         } catch (InvocationTargetException ex) {
             Logger.getLogger(JarClassLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public boolean loadJar() {
+    	return true;
     }
 
 }
