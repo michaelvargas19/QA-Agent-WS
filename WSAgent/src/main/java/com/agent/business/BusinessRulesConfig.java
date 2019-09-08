@@ -117,11 +117,11 @@ public class BusinessRulesConfig {
 	
 	public String getWSDL(String nameService) {
 		
-		loadService();
+		String wsdl ="Error";
 		
-		String html = this.util.getRequestToWSDL(nameService);
+		Service service = this.repository.findService(nameService);
 		
-		String wsdl = this.proxyConfig.sendRequestWSDL(nameService);
+		wsdl = this.proxyConfig.sendRequestWSDL(service);
 		
 		wsdl = this.util.fixWSDL(wsdl);
 		
@@ -131,7 +131,7 @@ public class BusinessRulesConfig {
 	//--------------------------------------------------------------------------- Configuration
 	@PostConstruct
     public void init() {
-		//loadService();
+		loadService();
     }
 	
 	

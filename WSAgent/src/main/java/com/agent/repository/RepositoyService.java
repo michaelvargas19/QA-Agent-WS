@@ -1,5 +1,7 @@
 package com.agent.repository;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 
@@ -47,8 +49,20 @@ public class RepositoyService implements IRepositoyService {
 	}
 		
 	
-	public Service findService(int idService) {
-		return null;
+	public Service findService(String nameservice) {
+		
+		Service service = new Service();
+		
+		try {
+			
+			service.setUrlWsdl(new URL("https://svn.apache.org/repos/asf/airavata/sandbox/xbaya-web/test/Calculator.wsdl"));
+			
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return service;
 	}
 	
 	

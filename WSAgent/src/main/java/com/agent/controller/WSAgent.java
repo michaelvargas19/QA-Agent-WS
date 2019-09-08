@@ -27,8 +27,6 @@ import com.agent.util.Util;
 
 @RestController
 public class WSAgent {
-	
-
 
 	private List<Service> services;
 	
@@ -64,17 +62,13 @@ public class WSAgent {
 			
 			
 		} catch (MalformedURLException e) {
-			
 			wsdl = util.getErrorConfiguration(nameService);
-			
 		}
 		
 		return wsdl;
 		
 	}
 
-
-	
 	
 	//Resource type GET to receive any request 
 	@RequestMapping(value = "operations/**", method = RequestMethod.GET)
@@ -111,36 +105,21 @@ public class WSAgent {
 
 	//-----------------------------------------------------------------------
 	
-
 	public List<Service> getServices() {
 		return services;
 	}
-
 
 	public void setServices(List<Service> services) {
 		this.services = services;
 	}
 
-
-
-
 	public BusinessRulesAgent getBusiness() {
 		return business;
 	}
-
-
-
 
 	public void setBusiness(BusinessRulesAgent business) {
 		this.business = business;
 	}
 
-
-
-	
-	
-
-	
-	
 	
 }

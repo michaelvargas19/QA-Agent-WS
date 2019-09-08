@@ -13,7 +13,7 @@ public interface IRepositoyService {
 	boolean addOperation (int idService,Operation opetation);
 	boolean addPolicy(int idOperation, Policy policie);
 	boolean addPolicy(Policy policy);
-	Service findService(int idService);
+	Service findService(String nameservice);
 	List<Policy> findPoliciesByOperation(int idOperation); 
 
 }
