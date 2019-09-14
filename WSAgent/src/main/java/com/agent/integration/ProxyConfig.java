@@ -14,6 +14,7 @@ import org.springframework.web.servlet.resource.HttpResource;
 
 import com.agent.entities.Agent;
 import com.agent.entities.PolicyType;
+import com.agent.entities.ResponseConfiguration;
 import com.agent.entities.Service;
 
 @Component("ProxyConfig")
@@ -22,9 +23,9 @@ public class ProxyConfig {
 	//private Logger logger;
 	private HttpRequest request;
 	
-	public String sendRegister(Agent agent) {
+	public ResponseConfiguration sendRegister(Agent agent) {
 		
-		return "";
+		return new ResponseConfiguration();
 	}
 	
 	public File sendRequestJAR(String URI) {

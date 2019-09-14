@@ -16,6 +16,10 @@ public class Policy {
 	public String applyPolitic(String request) {
 		return " :: " + request + "--> Have polity " + this.name;
 	}
+	
+	public String takeOffPolitic(String request) {
+		return " :: " + request + "--> Don't have polity " + this.name;
+	}
 
 	//--------------------------------------
 	

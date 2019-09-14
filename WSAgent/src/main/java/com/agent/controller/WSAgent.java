@@ -74,24 +74,22 @@ public class WSAgent {
 	@RequestMapping(value = "operations/**", method = RequestMethod.GET)
 	@ResponseBody
 	public String operationGET(HttpServletRequest request) {
+		
 		StringBuffer path = request.getRequestURL();
-		String headerNames = "";
-		Enumeration<String> names = request.getHeaderNames();
 		
-		while(names.hasMoreElements()) {
-			headerNames = headerNames + names.nextElement() + " ---- ";
-		}
+		String response = this.business.processRequest(request.toString(), path.toString());
 		
-		return "Path: " + path.toString() +"\r\n         "+
-				"HeaderNames:" + headerNames;
+		return response + "\r\n" + path.substring(33);
 	}
 	
 	//Resource type POST to receive any SOAP request
 	@RequestMapping(value = "operations/**", method = RequestMethod.POST, consumes = "text/xml")
 	@ResponseBody
-	public String operationPOST(@RequestHeader(value="soapAction") String soapAction, @RequestBody String content) {
+	public String operationPOST(HttpServletRequest request) {
 		
-		return soapAction;
+		
+				
+		return request.toString();
 	}
 		
 	private boolean validateService(String name) {

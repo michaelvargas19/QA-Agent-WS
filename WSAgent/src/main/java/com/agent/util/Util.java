@@ -60,16 +60,13 @@ public class Util {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
- 
 		
 		return null;
 	}
 	
 	@PostConstruct
     public void init() {
-		
 		readPropiertes();
-		
     }
 	
 	
@@ -78,6 +75,10 @@ public class Util {
 	}
 	
 	public boolean saveJAR(File policy) {
+		return true;
+	}
+	
+	public boolean saveWSDL(String wsdl) {
 		return true;
 	}
 	
@@ -91,7 +92,6 @@ public class Util {
         try {
             dBuilder = dbFactory.newDocumentBuilder();
 
-            
             Document doc = dBuilder.parse(new InputSource(new StringReader(wsdlFixed)));
             
             doc.getDocumentElement().normalize();

@@ -2,6 +2,7 @@ package com.agent.repository;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,18 +35,20 @@ public class RepositoyService implements IRepositoyService {
 		
 		for (Operation operation : service.getOperations()) {
 			addOperation(service.getId(), operation);
-			
+			for (Policy policy : operation.getPolicies()) {
+				addPolicy(operation.getId(), policy);
+			}
 		}
 		
 		return true;
 	}
 	
 	public List<Policy> findPoliciesByOperation(int idOperation){
-		return null;
+		return new ArrayList<Policy>();
 	}
 	
 	public List<Policy> findPoliciesByService(Service service){
-		return null;
+		return new ArrayList<Policy>();
 	}
 		
 	

@@ -36,6 +36,9 @@ public class BusinessRulesAgent {
 	@Qualifier("ProxyAgent")
 	private ProxyAgent proxyAgent;
 	
+	@Autowired
+	private RepositoyService repository;
+	
 	private Agent agent;
 	private List<Service> services;
 	private List<Policy> policies;
@@ -50,6 +53,29 @@ public class BusinessRulesAgent {
 
 	
 	//--------------------------------------------------------------------------- Policies
+	
+	public String processRequest(String request,String nameservice) {
+		
+		//Identify policies
+		Service service= repository.findService(nameservice);
+		List<Policy> policies = this.repository.findPoliciesByService(service);
+		String requestFixed = request;
+		
+		//Apply policies
+		for (Policy policy : policies) {
+			requestFixed = 	policy.applyPolitic(requestFixed);
+		}
+		
+		String response = this.proxyAgent.sendRequest(requestFixed);
+		
+		//Take off policies
+		for (Policy policy : policies) {
+			response = 	policy.takeOffPolitic(response);
+		}
+
+		return response;
+	}
+
 	public Service findService(String nameService) {
 		
 		for (Service service : this.services) {

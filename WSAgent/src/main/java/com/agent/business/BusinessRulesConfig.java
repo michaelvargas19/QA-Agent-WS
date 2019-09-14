@@ -3,6 +3,7 @@ package com.agent.business;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Component;
 
 import com.agent.entities.Agent;
 import com.agent.entities.Policy;
+import com.agent.entities.ResponseConfiguration;
 import com.agent.entities.Service;
 import com.agent.integration.ProxyAgent;
 import com.agent.integration.ProxyConfig;
+import com.agent.policy.IManagerPolicies;
 import com.agent.policy.JarClassLoader;
 import com.agent.repository.IRepositoyService;
 import com.agent.repository.RepositoyService;
@@ -38,76 +41,81 @@ public class BusinessRulesConfig {
 	@Autowired
 	@Qualifier("ProxyConfig")
 	private ProxyConfig proxyConfig;
+	
+	@Autowired
+	@Qualifier("ManagerPolicies")
+	private IManagerPolicies managerPolicies;
 		
 	private Agent agent;
 	private List<Service> services;
-	private List<Policy> policies;
+	private List<Policy> policies;	
 	
 	
-	
-	public void loadService() {
+	public void configureAgent() {
 		
 		this.agent = this.util.getAgent();
+		Boolean stateConf = false;
 		
-		String response = this.proxyConfig.sendRegister(agent);
-		
-		String prk = getPrimaryKeyAgent(response);
-		String puk = getPublicKeyWSG(response);
-		List<Service> services = getServices(response);
-		List<Policy> policies = getPolicies(response);
-		
-		this.util.saveKey(prk, puk);
-		
-		/*for (Policy policy : policies) {
+		while(stateConf) {
 			
-			File jar = this.proxyConfig.sendRequestJAR(policy.getURLJar());
-			policy.setJar(jar);
-		}
-		
-		for (Policy policy : policies) {
+			ResponseConfiguration response = this.proxyConfig.sendRegister(agent);
 			
-			validateSignature(policy.getJar());
-		}
+			this.util.saveKey(response.getPrivateKey(), response.getPublicKey());
 			
-		try {
-			JarClassLoader loader = new JarClassLoader(new URL(""));
+			this.services = response.getServices();
+			this.policies = findPolicies(response);
 			
+			List<File> files = new ArrayList<File>();
+			
+			//Validate policies
+			for (Policy policy : this.policies) {
+				
+				File jar = this.proxyConfig.sendRequestJAR(policy.getURLJar());
+				
+				if(validateSignature(jar)) {
+					files.add(jar);
+					stateConf = true;
+				}else{
+					files.clear();
+					stateConf = false;
+					break;
+				};
+				
+			}
+			
+			//Save policies JAR
+			for (File jar : files) {
+				this.util.saveJAR(jar);
+			}
+			
+			//Load policies and Save datas			
 			for (Policy policy : policies) {
-				this.util.saveJAR(policy.getJar());
 				this.repository.addPolicy(policy);
-				loader.loadJar();
+				this.managerPolicies.loadPolicies(policy);	
+			}
+			
+			for (Service service : services) {
+				
+				String wsdl ="";
+				
+				wsdl = this.proxyConfig.sendRequestWSDL(service);
+				
+				wsdl = this.util.fixWSDL(wsdl);
+				
+				this.util.saveWSDL(wsdl);
+				
+				this.repository.addService(service);
+				
 			}
 			
 			
+		}
 			
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-		
-		
-		
-		for (Service service : services) {
-			this.repository.addService(service);
-		}*/
-			
-		
-		
 	}
 	
-	private String getPrimaryKeyAgent(String response) {
-		return "";
-	};
 	
-	private String getPublicKeyWSG(String response) {
-		return "";
-	};
-	
-	private List<Service> getServices(String response) {
-		return null;
-	};
-	
-	private List<Policy> getPolicies(String response) {
+		
+	private List<Policy> findPolicies(ResponseConfiguration response) {
 		return null;
 	};	
 	
@@ -115,6 +123,7 @@ public class BusinessRulesConfig {
 		return true;
 	}
 	
+	/**/
 	public String getWSDL(String nameService) {
 		
 		String wsdl ="Error";
@@ -131,11 +140,12 @@ public class BusinessRulesConfig {
 	//--------------------------------------------------------------------------- Configuration
 	@PostConstruct
     public void init() {
-		loadService();
+		configureAgent();
     }
 	
 	
 	//---------------------------------------------------------------------------
+	
 	
 	public RepositoyService getRepository() {
 		return repository;
